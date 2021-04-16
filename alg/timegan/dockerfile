@@ -1,0 +1,11 @@
+FROM tensorflow/tensorflow:1.10.1-devel-gpu-py3
+MAINTAINER Ilya Trofimov
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get -yqq update
+RUN apt-get -yqq install python3.5-tk vim
+
+RUN git clone https://github.com/IlyaTrofimov/mlforhealthlabpub.git
+
+CMD ["/bin/bash"]
