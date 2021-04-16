@@ -32,6 +32,7 @@ Outputs
 
 import numpy as np
 import sys
+import pickle
 
 #%% Functions
 # 1. Models
@@ -49,10 +50,10 @@ from predictive_score_metrics import predictive_score_metrics
 #%% Main Parameters
 # Data
 data_set = ['google','sine']
-data_name = data_set[1]
+data_name = data_set[0]
 
 # Experiments iterations
-Iteration = 2
+Iteration = 1
 Sub_Iteration = 10
 
 #%% Data Loading
@@ -67,13 +68,15 @@ elif data_name == 'sine':
 
 print(data_name + ' dataset is ready.')
 
+epochs = int(sys.argv[1])
+
 #%% Newtork Parameters
 parameters = dict()
 
 parameters['hidden_dim'] = len(dataX[0][0,:]) * 4
 parameters['num_layers'] = 3
-parameters['iterations'] = 50000
-parameters['batch_size'] = 128
+parameters['iterations'] = epochs
+parameters['batch_size'] = 64
 parameters['module_name'] = 'gru'   # Other options: 'lstm' or 'lstmLN'
 parameters['z_dim'] = len(dataX[0][0,:]) 
 
@@ -95,6 +98,7 @@ for it in range(Iteration):
     # 1. Discriminative Score
     Acc = list()
     for tt in range(Sub_Iteration):
+        print('Sub_Iteration', tt)
         Temp_Disc = discriminative_score_metrics (dataX, dataX_hat)
         Acc.append(Temp_Disc)
     
@@ -103,14 +107,17 @@ for it in range(Iteration):
     # 2. Predictive Performance
     MAE_All = list()
     for tt in range(Sub_Iteration):
+        print('Sub_Iteration', tt)
         MAE_All.append(predictive_score_metrics (dataX, dataX_hat))
         
     Predictive_Score.append(np.mean(MAE_All))        
         
 #%% 3. Visualization
-PCA_Analysis (dataX, dataX_hat)
-tSNE_Analysis (dataX, dataX_hat)
+#PCA_Analysis (dataX, dataX_hat)
+#tSNE_Analysis (dataX, dataX_hat)
 
 # Print Results
 print('Discriminative Score - Mean: ' + str(np.round(np.mean(Discriminative_Score),4)) + ', Std: ' + str(np.round(np.std(Discriminative_Score),4)))
 print('Predictive Score - Mean: ' + str(np.round(np.mean(Predictive_Score),4)) + ', Std: ' + str(np.round(np.std(Predictive_Score),4)))
+
+pickle.dump([dataX_hat, Discriminative_Score, Predictive_Score], open('model_%d.pickle' % epochs, 'wb'))
