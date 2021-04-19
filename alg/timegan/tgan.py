@@ -42,6 +42,10 @@ def tgan (dataX, parameters):
     # Initialization on the Graph
     tf.reset_default_graph()
 
+    # trofim - fix seed
+    np.random.seed(7)
+    tf.set_random_seed(7)
+
     # Basic Parameters
     No = len(dataX)
     data_dim = len(dataX[0][0,:])
