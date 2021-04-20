@@ -253,6 +253,9 @@ def tgan (dataX, parameters):
     #%% Embedding Learning
     
     print('Start Embedding Network Training')
+    # trofim - fix seed
+    np.random.seed(7)
+    tf.set_random_seed(7)
     
     for itt in range(iterations):
         
@@ -274,6 +277,9 @@ def tgan (dataX, parameters):
     #%% Training Supervised Loss First
     
     print('Start Training with Supervised Loss Only')
+    # trofim - fix seed
+    np.random.seed(7)
+    tf.set_random_seed(7)
     
     for itt in range(iterations):
         
@@ -297,6 +303,9 @@ def tgan (dataX, parameters):
     #%% Joint Training
     
     print('Start Joint Training')
+    # trofim - fix seed
+    np.random.seed(7)
+    tf.set_random_seed(7)
     
     # Training step
     for itt in range(iterations):
@@ -353,6 +362,9 @@ def tgan (dataX, parameters):
     print('Finish Joint Training')
     
     #%% Final Outputs
+    # trofim - fix seed
+    np.random.seed(7)
+    tf.set_random_seed(7)
     
     Z_mb = random_generator(No, z_dim, dataT, Max_Seq_Len)
     
