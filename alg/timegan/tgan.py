@@ -38,6 +38,11 @@ def MinMaxScaler(dataX):
 #%% Start TGAN function (Input: Original data, Output: Synthetic Data)
 
 def tgan (dataX, parameters):
+
+    #gpus = tf.config.list_physical_devices('GPU')
+	
+    #for gpu in gpus:
+    #    tf.config.experimental.set_virtual_device_configuration(gpu,[tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)])
   
     # Initialization on the Graph
     tf.reset_default_graph()

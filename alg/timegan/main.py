@@ -76,7 +76,7 @@ parameters = dict()
 parameters['hidden_dim'] = len(dataX[0][0,:]) * 4
 parameters['num_layers'] = 3
 parameters['iterations'] = epochs
-parameters['batch_size'] = 64
+parameters['batch_size'] = 128
 parameters['module_name'] = 'gru'   # Other options: 'lstm' or 'lstmLN'
 parameters['z_dim'] = len(dataX[0][0,:]) 
 
